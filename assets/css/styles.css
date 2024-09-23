@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+}
+
+:root{
+    --text-sm: 0.8rem;
+}
+
+html {
+    scrollbar-width: thin; /* This property is specific to Firefox */
+}
+
+body{
+    font-family: 'Overpass', sans-serif;
+}
+
+html::-webkit-scrollbar {
+    width: 6px; 
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 10px; 
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+}
+
+a{
+    text-decoration: none;
+}
+
+.dropdown-menu{
+    width: 11rem;
+}
+
+#username, #user-email {
+    display: inline-block;    
+    max-width: 100%;          
+    white-space: nowrap;     
+    overflow: hidden;         
+    text-overflow: ellipsis; 
+    vertical-align: middle;   
+}
+
+#user-email{
+    font-size: var(--text-sm);
+}
+
+#sidebar{
+    width: 18rem;
+}
+
+.logo, .avatar{
+    height: 38px;
+}
+
+.avatar{
+    width: 38px;
+    object-fit: cover;
+}
+
+.profile{
+    height: 85px;
+    width: 85px;
+    object-fit: cover;
+}
+
+.icon{
+    height: 16px;
+}
+
+.description{
+    font-size: 14px;
+}
+
+.sub-menu{
+    padding-left: 5%;
+}
+
+.card{
+    min-width: 15rem;
+}
+
+.form-label{
+    font-size: var(--text-sm);
+}
+
+.btn:focus, .btn:active{
+    outline: none;
+    box-shadow: none;
+}
+
+.account-actions{
+    font-size: 15px;
+}
+
+@media (max-width: 576px){
+    .dropdown-menu{
+        width: 150px;
+    }
+
+    #sidebar{
+        width: 15rem;
+    }   
+}
+
+

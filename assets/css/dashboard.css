@@ -1,0 +1,28 @@
+.dropdown-menu{
+    width: 11rem;
+}
+
+#username, #user-email {
+    display: inline-block;    /* Allows control over the element's width */
+    max-width: 100%;          /* Ensures the email doesn't exceed the container's width */
+    white-space: nowrap;      /* Prevents the text from wrapping */
+    overflow: hidden;         /* Hides overflowed text */
+    text-overflow: ellipsis;  /* Displays ellipsis for overflowed text */
+    vertical-align: middle;   /* Aligns the text vertically within the line */
+}
+
+#user-email{
+    font-size: var(--text-sm);
+}
+
+#sidebar{
+    width: 18rem;
+}
+
+.logo, .avatar{
+    height: 38px;
+}
+
+.icon{
+    height: 16px;
+}
