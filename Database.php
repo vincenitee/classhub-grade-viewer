@@ -31,6 +31,7 @@ class Database{
                     for($i = 0; $i < count($table_columns); $i++){
                         // Converts all characters to HTML entities for safe rendering
                         $return_value[$counter][$table_columns[$i]] = htmlentities($result[$table_columns[$i]], ENT_QUOTES);
+                        $return_value[$counter][$i] = htmlentities($result[$table_columns[$i]], ENT_QUOTES);
                     }
                     
                     $counter = $counter + 1;

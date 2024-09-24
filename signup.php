@@ -22,7 +22,7 @@
 
     <section class="container p-4">
         <div class="row align-items-center justify-content-center h-100">
-            <form novalidate action="" class="col-md-8 mx-auto">
+            <form action="register-user.php"  class="col-md-8 mx-auto">
                 <div class="navbar-brand d-flex flex-fill justify-content-center align-items-center">
                     <img src="assets/img/classhub_logo.png" alt="" width="100">
                 </div>
@@ -46,7 +46,7 @@
                             Middlename (Optional)
                         </label>
 
-                        <input type="text" name="middlename" id="middlename" class="form-control form-control-sm" autocomplete="off">
+                        <input type="text" name="middlename" id="middlename" class="form-control form-control-sm" required autocomplete="off">
                     </div>
 
                     <!-- Lastname -->
@@ -139,7 +139,7 @@
                         <label for="" class="form-label text-secondary">
                             Region <span class="text-danger">*</span>
                         </label>
-                        <select name="region" id="region" class="form-select form-select-sm">
+                        <select name="region" id="region-select" class="form-select form-select-sm">
                             <option value="">Select Region</option>
                         </select>
                     </div>
@@ -149,7 +149,7 @@
                         <label for="" class="form-label text-secondary">
                             Province <span class="text-danger">*</span>
                         </label>
-                        <select name="province" id="province" class="form-select form-select-sm" disabled>
+                        <select name="province" id="province-select" class="form-select form-select-sm" required disabled>
                             <option value="">Select Province</option>
                         </select>
                     </div>
@@ -159,7 +159,7 @@
                         <label for="" class="form-label text-secondary">
                             Municipality <span class="text-danger">*</span>
                         </label>
-                        <select name="municipality" id="municipality" class="form-select form-select-sm" disabled>
+                        <select name="municipality" id="municipality" class="form-select form-select-sm" required disabled>
                             <option value="">Select Municipality</option>
                         </select>
                     </div>
@@ -169,7 +169,7 @@
                         <label for="" class="form-label text-secondary">
                             Barangay <span class="text-danger">*</span>
                         </label>
-                        <select name="barangay" id="barangay" class="form-select form-select-sm" disabled>
+                        <select name="barangay" id="barangay" class="form-select form-select-sm" required disabled>
                             <option value="">Select Barangay</option>
                         </select>
                     </div>
@@ -236,5 +236,10 @@
         </div>
     </section>
 
+    <!-- Axios JS -->
+    <script src="assets/js/utils/axios.js"></script>
+
+    <!-- Custom JS -->
+    <script type="module" src="assets/js/components/signup.js"></script>
 </body>
 </html>
