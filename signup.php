@@ -98,7 +98,7 @@
                             Student ID No <span class="text-danger">*</span>
                         </label>
 
-                        <input type="text" name="lastname" id="lastname" class="form-control form-control-sm" required autocomplete="off">
+                        <input type="text" name="lastname" id="student-id" class="form-control form-control-sm" required autocomplete="off">
                     </div>
 
                     <!-- Year Level -->
@@ -107,12 +107,19 @@
                             Year Level <span class="text-danger">*</span>
                         </label>
 
-                        <select name="year-level" id="year-level" class="form-select form-select-sm">
+                        <select name="year-level" id="yearlevel-select" class="form-select form-select-sm">
                             <option value="">Select Year Level</option>
-                            <option value="7">Grade 7</option>
-                            <option value="8">Grade 8</option>
-                            <option value="9">Grade 9</option>
-                            <option value="10">Grade 10</option>
+                        </select>
+                    </div>
+
+                    <!-- Strand -->
+                    <div class="col-lg-3">
+                        <label for="" class="form-label text-secondary">
+                            Strand <span class="text-danger">*</span>
+                        </label>
+
+                        <select name="strand" id="strand-select" class="form-select form-select-sm" disabled>
+                            <option value="">Select Strand</option>
                         </select>
                     </div>
 
@@ -122,12 +129,9 @@
                             Section <span class="text-danger">*</span>
                         </label>
 
-                        <select name="section" id="section" class="form-select form-select-sm">
+                        <select name="section" id="section-select" class="form-select form-select-sm" disabled>
                             <option value="">Select Section</option>
-                            <option value="A">Section A</option>
-                            <option value="B">Section B</option>
-                            <option value="C">Section C</option>
-                            <option value="D">Section D</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -159,7 +163,7 @@
                         <label for="" class="form-label text-secondary">
                             Municipality <span class="text-danger">*</span>
                         </label>
-                        <select name="municipality" id="municipality" class="form-select form-select-sm" required disabled>
+                        <select name="municipality" id="municipality-select" class="form-select form-select-sm" required disabled>
                             <option value="">Select Municipality</option>
                         </select>
                     </div>
@@ -169,7 +173,7 @@
                         <label for="" class="form-label text-secondary">
                             Barangay <span class="text-danger">*</span>
                         </label>
-                        <select name="barangay" id="barangay" class="form-select form-select-sm" required disabled>
+                        <select name="barangay" id="barangay-select" class="form-select form-select-sm" required disabled>
                             <option value="">Select Barangay</option>
                         </select>
                     </div>
@@ -238,6 +242,9 @@
 
     <!-- Axios JS -->
     <script src="assets/js/utils/axios.js"></script>
+
+    <!-- Sweet Alert JS -->
+    <script src="assets/js/utils/sweetalert2.js"></script>
 
     <!-- Custom JS -->
     <script type="module" src="assets/js/components/signup.js"></script>

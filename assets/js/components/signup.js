@@ -1,47 +1,98 @@
+import { showValidationMessage } from '../utils/alerts.js';
 import { selectById, selectChildren } from '../utils/dom.js';
 
 const regionSelect = selectById('region-select');
+const provinceSelect = selectById('province-select');
+const municipalitySelect = selectById('municipality-select');
+const brgySelect = selectById('barangay-select');
+
+const yearSelect = selectById('yearlevel-select');
+const sectionSelect = selectById('section-select');
+const strandSelect = selectById('strand-select');
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchRegions()
+    const regionUrl = 'fetch-places.php';
+    fetchAndPopulate(regionUrl, regionSelect, false);
+    
+    const yearUrl = 'fetch-years.php';
+    fetchAndPopulate(yearUrl, yearSelect, false);  
 })
+
+yearSelect.addEventListener('change', () => {
+    const yearId = yearSelect.value;
+
+    if(yearId !== '' && yearId){
+        const sectionUrl = `fetch-sections.php?yearId=${yearId}`;
+        fetchAndPopulate(sectionUrl, sectionSelect, false)
+
+        const strandUrl = `fetch-strands.php?yearId=${yearId}`;
+        fetchAndPopulate(strandUrl, strandSelect, false);
+    }
+})  
 
 regionSelect.addEventListener('change', () => {
     const regionId = regionSelect.value;
     
-    if(regionId != ''){
-        fetchProvinces(regionId);
+    if(regionId !== '' && regionId){
+        const provinceUrl = `fetch-places.php?regionId=${regionId}`;
+        fetchAndPopulate(provinceUrl, provinceSelect, false);
     }
 })
 
-async function fetchRegions(){
+provinceSelect.addEventListener('change', () =>{
+    const provinceId = provinceSelect.value;
+
+    if(provinceId !== '' && provinceId){
+        const municipalityUrl = `fetch-places.php?provinceId=${provinceId}`;
+        fetchAndPopulate(municipalityUrl, municipalitySelect, false);
+    }
+})
+
+municipalitySelect.addEventListener('change', () => {
+    const municipalityId = municipalitySelect.value;
+
+    if(municipalityId !== '' && municipalityId){
+        const brgyUrl = `fetch-places.php?municipalityId=${municipalityId}`;
+        fetchAndPopulate(brgyUrl, brgySelect, false);
+    }
+})
+
+// Refractored function
+async function fetchAndPopulate(url, select, disabled = true){
+    if(disabled){
+        disableSelect(select);
+    } else{
+        enableSelect(select);
+    }
+    
     try{
-        const response = await axios.get('fetch-regions.php');
-        const regions = response.data;
-        
-        if(regionSelect && regions){
-            populateSelect(regionSelect, regions);
+        const options = await fetchData(url);
+
+        if(select && options){
+            populateSelect(select, options);
         }
+
     } catch(error){
-        console.error('Unable to fetch regions: ', error);
+        console.error('Unable to fetch data: ', error);
+        showValidationMessage('Oops...', 'error', 'Failed to load data, try again later');
     }
 }
 
-async function fetchProvinces(regionId) {
+async function fetchData(url){
     try{
-        const response = await axios.get(`fetch-provinces.php?regionId=${regionId}`);
-        const provinces = response.data;
+        const response = await axios.get(url);
 
-        console.log(provinces);
+        if(response.status !== 200){
+            throw new Error(`Failed with status code: ${response.status}`);
+        } 
 
-        const provinceSelect = selectById('province-select');
+        console.log(response);
 
-        if(provinceSelect && provinces){
-            populateSelect(provinceSelect, provinces)
-        }
-
+        return response.data;
     } catch(error){
-        console.error('Unable to fetch provinces', error);
+        console.error('Unable to fetch data', error);
+        showValidationMessage('Oops...', 'error', 'Failed to load data, try again later');
+        throw error;
     }
 }
 
@@ -49,14 +100,18 @@ function populateSelect(select, options){
     clearOptions(select);
 
     if(select.disabled){
-        select.disabled = false;
+        disableSelect(select)
+    }
+
+    if(options.length === 0){
+        select.add(new Option('No Options Available', ''))
+        return;
     }
 
     const mappedOptions = mapToGeneric(options)
 
     mappedOptions.forEach(option => {
-        const optionElement = new Option(option.value, option.id);
-        select.appendChild(optionElement);
+        select.add(new Option(option.value.toUpperCase(), option.id));
     })
 }
 
@@ -75,4 +130,12 @@ function clearOptions(select){
             select.removeChild(option);
         }
     })
+}
+
+function disableSelect(select){
+    select.disabled = true;
+}
+
+function enableSelect(select){
+    select.disabled = false;
 }
