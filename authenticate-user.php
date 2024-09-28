@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email-address'];
     $current_password = $_POST['password'];
 
-    $response = ["login" => false];
+    $response = ["status" => false];
 
     // Checks if it is a valid email
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 $response = ["login" => true];
             } else{
-                $response["message"] = "Invalid Password or Email";
+                $response["message"] = "Invalid Email or Password";
             }
 
         } else{

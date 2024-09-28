@@ -1,17 +1,16 @@
-function select(element) {
+export function select(element) {
     return document.querySelector(element);
 }
 
-function selectAll(element) {
+export function selectAll(element) {
     return document.querySelectorAll(element);
 }
 
-function selectById(elementId) {
+export function selectById(elementId) {
     return document.getElementById(elementId);
 }
 
-function selectChildren(parentContainer, childEelement){
+export function selectChildren(parentContainer, childEelement){
     return parentContainer.querySelectorAll(childEelement);
 }
 
-export { select, selectAll, selectById, selectChildren };

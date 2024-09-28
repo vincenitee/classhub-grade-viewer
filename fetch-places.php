@@ -2,11 +2,6 @@
     require_once 'DatabaseConnect.php';
     
     $db = DatabaseConnect::getInstance();
-
-    /**
-     *Checks if there is any ID included on the URL 
-     *If there is not it will fetch all the regions by default
-     */
     
     $sql = "SELECT * FROM region";
 

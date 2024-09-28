@@ -247,6 +247,6 @@
     <script src="assets/js/utils/sweetalert2.js"></script>
 
     <!-- Custom JS -->
-    <script type="module" src="assets/js/components/signup.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

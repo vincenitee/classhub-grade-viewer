@@ -52,6 +52,11 @@
     
     <!-- SweetAlert2 -->
     <script src="assets/js/utils/sweetalert2.js"></script>
-    <script type="module" src="assets/js/login.js"></script>
+
+    <!-- Axios JS -->
+    <script src="assets/js/utils/axios.js"></script>
+
+    <!-- Bundled JS -->
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
