@@ -22,7 +22,7 @@
 
     <section class="container p-4">
         <div class="row align-items-center justify-content-center h-100">
-            <form action="register-user.php"  class="col-md-8 mx-auto">
+            <form action="register-user.php" method="post" class="col-md-8 mx-auto" id="signup-form">
                 <div class="navbar-brand d-flex flex-fill justify-content-center align-items-center">
                     <img src="assets/img/classhub_logo.png" alt="" width="100">
                 </div>
@@ -98,7 +98,7 @@
                             Student ID No <span class="text-danger">*</span>
                         </label>
 
-                        <input type="text" name="lastname" id="student-id" class="form-control form-control-sm" required autocomplete="off">
+                        <input type="text" name="student-id" id="student-id" class="form-control form-control-sm" required autocomplete="off">
                     </div>
 
                     <!-- Year Level -->
@@ -184,7 +184,7 @@
                             Street Name, Building, House No. <span class="text-danger">*</span>
                         </label>
 
-                        <input type="text" name="specific-address" id="specific-address" class="form-control form-control-sm">
+                        <input type="text" name="specific-address" id="specific-address" class="form-control form-control-sm" autocomplete="off">
                     </div>
 
                     <!-- Postal Code -->
@@ -193,7 +193,7 @@
                             Postal Code <span class="text-danger">*</span>
                         </label>
 
-                        <input type="text" name="postal-code" id="postal-code" class="form-control form-control-sm">
+                        <input type="text" name="postal-code" id="postal-code" class="form-control form-control-sm" autocomplete="off">
                     </div>
                 </div>
                 <hr>

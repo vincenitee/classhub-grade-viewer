@@ -11,6 +11,10 @@ class Database{
 
     }
 
+    /**
+     * Selects a result set from the database and return a result set with multiple indices (e.g [0] => "value", [table_row] => "value")
+     * @param string $sql
+     */
     public function select_info_multiple_key($sql){
         
         if($results = $this->conn->query($sql)){
@@ -49,6 +53,12 @@ class Database{
 
     }
 
+    /**
+     * Inserts a row to a table through prepared statement
+     * @param string $sql
+     * @param string $types
+     * @param array $params
+     */
     public function insert_update_delete($sql, $types = '', $params = []){
         $stmt = $this->conn->prepare($sql);
 
@@ -72,9 +82,9 @@ class Database{
 
         // For insertion operation, it will return the last inserted id
         if(strpos($sql, "INSERT") === 0){
-            $insertID = $stmt->insert_id;
+            $insertId = $stmt->insert_id;
             $stmt->close();
-            return $insertID;
+            return $insertId;
         }
 
         $affected_rows = $stmt->affected_rows;
@@ -91,6 +101,9 @@ class Database{
         echo "</pre>";
     }
 
+    /**
+     *  Generates a unique id
+     */
     public function generateUID(){
         return substr(time(), -6) . rand(10000, 99999);
     }

@@ -1,3 +1,17 @@
+<?php 
+    require_once '../DatabaseConnect.php';
+
+    $db = DatabaseConnect::getInstance();
+
+    if(isset($_SESSION['user_id'])){
+        $user_id = intval($_SESSION['user_id']);
+
+        $sql = "SELECT * FROM student WHERE user_id = $user_id";
+        $user = $db->select_info_multiple_key($sql)[0];
+    }
+
+?>
+
 <nav class="navbar border bg-light sticky-top">
     <div class="container-fluid">
 
@@ -20,10 +34,14 @@
                     <li>
                         <p class="dropdown-item-text">
                             <span id="username">
-                                Test User
+                                <?php 
+                                    echo (isset($user)) ? "{$user['first_name']} {$user['last_name']}" : 'User not found'; 
+                                ?>
                             </span><br>
                             <span id="user-email" class="text-muted overflow-hidden">
-                                testuser@gmail.com
+                                <?php 
+                                    echo (isset($user)) ? "{$user['dmmmsu_email']}" : 'User not found'; 
+                                ?>
                             </span>
                         </p>
                     </li>
@@ -38,7 +56,7 @@
                     </li>
 
                     <li>
-                        <a href="" class="dropdown-item">
+                        <a href="../logout.php" class="dropdown-item">
                             <i data-feather="log-out" class="icon"></i>
                             Logout
                         </a>

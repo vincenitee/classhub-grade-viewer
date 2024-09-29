@@ -1,4 +1,3 @@
-import { academicSelects, locationSelects } from './domElements/index.js';
 import { forms } from './domElements/index.js';
 
 
@@ -10,17 +9,19 @@ function initializePage() {
                 initializeLoginForm();
             })
             .catch((error) => console.error(error));
-    } else if(locationSelects.regionSelect) {
-        // console.log('Region Select Found');
+    } else if(forms.signupForm) {
         import('./controllers/selectControllers.js')
             .then(({ initializeSelects }) => {
-                
                 initializeSelects();
             })
             .catch((error) => console.error(error));
+
+        import('./controllers/loginController.js')
+            .then(({ initilializeSignupForm }) => {
+                initilializeSignupForm();
+            });
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     initializePage();

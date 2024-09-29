@@ -1,7 +1,7 @@
 <?php 
-require_once 'Database.php';
+require_once 'DatabaseConnect.php';
 
-$db = new Database('localhost', 'root', '', 'classhub_data');
+$db = DatabaseConnect::getInstance();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $response = ["status" => false];
 
     // Checks if it is a valid email
-    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+    if(isset($email)){
         $sql = "SELECT * FROM student WHERE dmmmsu_email = '$email'";
         $result = $db->select_info_multiple_key($sql);
 
@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(password_verify($current_password, $password)){
                 session_start();
                 $_SESSION["user_id"] = $user["user_id"];
-
+                
                 $response = ["login" => true];
             } else{
                 $response["message"] = "Invalid Email or Password";
