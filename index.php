@@ -38,10 +38,11 @@
                 <!-- Password Input -->
                 <input type="password" name="password" id="password" class="form-control mb-4" placeholder="Password" required>
 
-                <button class="btn btn-primary w-100">Sign In</button>
+                <button class="btn btn-primary w-100">Login</button>
+                <button class="btn btn-secondary w-100 mt-2">Administrator Login</button>
 
                 <div class="checkbox mt-3 text-secondary account-actions">
-                    <span>Don't have an account? <a href="signup.php">Signup here</a></span><br>
+                    <span>Don't have an account? <a href="student/signup.php">Signup here</a></span><br>
 
                     <span>Forgot your password? <a href="reset-password.php">Reset here</a></span>
                 </div>

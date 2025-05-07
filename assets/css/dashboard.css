@@ -1,5 +1,16 @@
+@font-face {
+    font-family: 'Overpass';
+    src: url('../fonts/Overpass-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+}
+
+body{
+    font-family: 'Overpass', sans-serif;
+}
+
 .dropdown-menu{
-    width: 11rem;
+    width: fit-content;
 }
 
 #username, #user-email {
@@ -25,4 +36,8 @@
 
 .icon{
     height: 16px;
+}
+
+#account-dropdown{
+    z-index: 99;
 }

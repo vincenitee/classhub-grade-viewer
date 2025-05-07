@@ -1,43 +1,96 @@
-import { showValidationMessage } from "../utils/index.js";
+import { forms } from "../domElements/forms.js";
+import { resetForm } from "../helpers/formUtils.js";
+import { showToastMessage, showValidationMessage } from "../utils/index.js";
 
-export async function authenticateUser(formData) {
-    const loginUrl = 'authenticate-user.php';
-    
+export async function validateEntries({url, form = null, formData, redirect_url = null, notificationType = 'modal'}){
     try{
-        const request = axios.post(loginUrl, formData);
+        const response = await axios.post(url, formData);
 
-        const response = await request;
+        const { success, message } = response.data;
 
-        console.log(response.data);
+        console.log(success)
 
-        if(response.data.login){
-            window.location.href = './student/dashboard.php';
+        if(success){
+
+            if(redirect_url){
+                window.location.href = redirect_url;
+            }
+
+            if(form){
+                resetFormAndNotify(form, message, notificationType);
+                return;
+            }
+
+            notify(message, 'success', notificationType);
+
         } else{
-            showValidationMessage('Login Failed', 'error', response.data.message);
+            notify(message, 'error', notificationType);
         }
 
     } catch(error){
-        console.error(error)
+        console.error(error);
+        notify(`An error occured: ${error}`, 'error', 'modal');
     }
+}
+
+export async function authenticateUser(formData){
+    return validateEntries({
+        url: 'authenticate-user.php',
+        form: forms.login,
+        formData: formData,
+        redirect_url: 'student/home.php'
+    });
 }
 
 export async function validateSignup(formData){
-    const signupUrl = 'register-user.php';
+    return validateEntries({
+        url: '../register-user.php',
+        form: forms.signup,
+        formData: formData,
+    });
+}
 
-    try{
-        const request = axios.post(signupUrl, formData);
+export async function validateUpdatePass(formData){
+    return validateEntries({
+        url: '../update-password.php',
+        form: forms.updatePass,
+        formData: formData,
+        notificationType: 'toast'
+    });
+}
 
-        const response = await request;
+export async function validateUpdateUser(formData){
+    return validateEntries({
+        url: '../update-user-info.php',
+        formData: formData,
+        notificationType: 'toast'
+    });
+}
 
-        console.log(response);
+function resetFormAndNotify(form, message, notificationType){
+    resetForm(form);
 
-        if(response.data.success){
-            showValidationMessage('Registered Successfully', 'success');
-        } else{
-            showValidationMessage('Detected an Issue', 'error', response.data.message);
-        }
-    } catch(error){
-        console.error(error)
+    notify(message, 'success', notificationType);
+}
+
+function notify(message, icon = 'success', notificationType = 'modal') {
+    if (icon === 'error') {
+        notificationType = 'modal';
+    }
+
+    switch (notificationType) {
+        case 'modal':
+            showValidationMessage("Notice", icon, message);
+            break;
+
+        case 'toast':
+            showToastMessage(icon, message);
+            break;
+
+        default:
+            showValidationMessage(message, icon);
+            break;
     }
 }
+
 

@@ -10,7 +10,8 @@ export function selectById(elementId) {
     return document.getElementById(elementId);
 }
 
-export function selectChildren(parentContainer, childEelement){
-    return parentContainer.querySelectorAll(childEelement);
+export function selectChildren(parentContainer, childElement){
+    // Converts the NodeList to an Array
+    return [...parentContainer.querySelectorAll(childElement)];
 }
 

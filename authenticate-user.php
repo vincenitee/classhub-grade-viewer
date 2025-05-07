@@ -3,40 +3,49 @@ require_once 'DatabaseConnect.php';
 
 $db = DatabaseConnect::getInstance();
 
+$response = ["success" => false];
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $email = $_POST['email-address'];
-    $current_password = $_POST['password'];
+    $password = $_POST['password'];
 
-    $response = ["status" => false];
+    if(isUserCredentialsValid($email, $password)){
+        session_start();
+        $response["success"] = true;
+        $response["message"] = "Signed In Successfully";
 
-    // Checks if it is a valid email
-    if(isset($email)){
-        $sql = "SELECT * FROM student WHERE dmmmsu_email = '$email'";
-        $result = $db->select_info_multiple_key($sql);
-
-        // Checks if the user exists
-        if(isset($result[0])){
-            $user = $result[0];
-            $password = $user["password"];
-
-            // Checks if the password is valid
-            if(password_verify($current_password, $password)){
-                session_start();
-                $_SESSION["user_id"] = $user["user_id"];
-                
-                $response = ["login" => true];
-            } else{
-                $response["message"] = "Invalid Email or Password";
-            }
-
-        } else{
-            $response["message"] = "User not found";
-        }
+        $sql = "SELECT student_id FROM student WHERE dmmmsu_email = '$email'";
+        $_SESSION['student_id'] = $db->select_info_multiple_key($sql)[0]['student_id'];
     }
     
     header('Content-Type: application/json');
     echo json_encode($response);
+    exit;
+}
+
+function isUserCredentialsValid($email, $password){
+    global $response, $db;
+
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $response["message"] = "Invalid email format";
+        return false;
+    }
+
+    $sql = "SELECT * FROM student WHERE dmmmsu_email = '$email'";
+    $user = $db->select_info_multiple_key($sql)[0];
+
+    if(!isset($user)){
+        $response["message"] = "User not found";
+        return false;
+    }
+
+    if(!password_verify($password, $user['password'])){
+        $response["message"] = "Incorrect password";
+        return false;
+    }
+
+    return true;
 }
 
 ?>

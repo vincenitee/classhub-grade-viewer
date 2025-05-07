@@ -51,15 +51,23 @@ a{
     font-size: var(--text-sm);
 }
 
-#sidebar{
-    width: 18rem;
+#sidebar {
+    width: 15rem; 
+    height: 100vh;
+    transition: width 0.3s ease-out; 
+    overflow: hidden; 
 }
 
-.logo, .avatar{
-    height: 38px;
+#sidebar.shrinked {
+    width: 5rem;
+}
+
+.logo{
+    height: 32px;
 }
 
 .avatar{
+    height: 38px;
     width: 38px;
     object-fit: cover;
 }
@@ -104,9 +112,15 @@ a{
         width: 150px;
     }
 
-    #sidebar{
-        width: 15rem;
-    }   
+    .nav-link{
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-link .description,
+    #logo-container span{
+        display: none;
+    }
 }
 
 

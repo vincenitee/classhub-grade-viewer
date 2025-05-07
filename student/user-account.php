@@ -1,4 +1,19 @@
-<?php 
+<?php
+    require_once realpath(dirname(__DIR__) . '/DatabaseConnect.php');
+
+    $db = DatabaseConnect::getInstance();
+    
+    session_start();
+    if(isset($_SESSION['student_id'])){
+        $student_id = $_SESSION['student_id'];
+    
+        $sql = "SELECT * FROM student WHERE student_id = $student_id";
+        $student = $db->select_info_multiple_key($sql)[0];
+    } else{
+        $file_path = realpath(dirname(__DIR__) . '/index.php');
+        header('Location: ' . $file_path);
+        exit;
+    }
 
 ?>
 
@@ -35,8 +50,16 @@
     <!-- Feather Icon -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
-    <script>
-        feather.replace()
-    </script>
+    <!-- FeatherIcon JS -->
+    <script> feather.replace() </script>
+
+    <!-- Axios JS -->
+    <script src="../assets/js/utils/axios.js"></script>
+
+    <!-- Sweet Alert 2 -->
+    <script src="../assets/js/utils/sweetalert2.js"></script>
+
+    <!-- Custom JS -->
+    <script type="module" src="../assets/js/main.js"></script>
 </body>
 </html>

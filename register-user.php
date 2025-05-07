@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = password_hash($confirm_password, PASSWORD_DEFAULT);
 
         // Insertion of user's information
-        $student_sql = 'INSERT INTO student (first_name, middle_name, last_name, personal_email, dmmmsu_email, student_id, contact_number, year_id, section_id, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $student_sql = 'INSERT INTO user (first_name, middle_name, last_name, personal_email, dmmmsu_email, student_id, contact_number, year_id, section_id, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $student_types = 'sssssssiis';
         $student_param = [$firstname, $middlename, $lastname, $personal_email, $dmmmsu_email, $student_id, $contact, $year_id, $section_id, $hashed_password];
 
@@ -46,21 +46,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($address_row_id) {
                 $response["success"] = true;
+                $response["message"] = "Registered Successfully";
             }
         } else {
             $response["message"] = "Failed to insert student data";
         }
-    } else {
-        // $response["message"] = "Weak Password";
     }
 
     header("Content-Type: application/json");
     echo json_encode($response);
+    exit;
 }
 
 function isPasswordValid($password, $confirm_password)
 {
+    global $response;
+
     if ($password !== $confirm_password) {
+        $response["message"] = "Password doesn't match";
         return false;
     }
 
@@ -71,23 +74,23 @@ function isPasswordValid($password, $confirm_password)
     $hasSpecialChars = preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password);
 
     if (strlen($password) < $minLength) {
-        $response["message"] = "Password must be atleast 8 chars";
+        $response["message"] = "Password must be atleast 8 character";
         return false;
     }
     if (!$hasUpperCase) {
-        $response["message"] = "Password must have an uppercase letter";
+        $response["message"] = "Password must contain an uppercase letter";
         return false;
     }
     if (!$hasLowerCase) {
-        $response["message"] = "Password must have an lowercase letter";
+        $response["message"] = "Password must contain a lowercase letter";
         return false;
     }
     if (!$hasNumbers) {
-        $response["message"] = "Password must have a number";
+        $response["message"] = "Password must contain a number";
         return false;
     }
     if (!$hasSpecialChars) {
-        $response["message"] = "Password must have a special chars";
+        $response["message"] = "Password must contain a special character";
         return false;
     }
 
